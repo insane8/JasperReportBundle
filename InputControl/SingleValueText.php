@@ -2,6 +2,7 @@
 
 namespace Mesd\Jasper\ReportBundle\InputControl;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilder;
 
 /**
@@ -61,12 +62,12 @@ class SingleValueText extends AbstractReportBundleInputControl
         //Add a new text field
         $formBuilder->add(
             $this->id,
-            'text',
+            TextType::class,
             array(
                 'label'     => $this->label ,
                 'data'      => (string)$this->defaultValue,
                 'required'  => $this->mandatory,
-                'read_only' => $this->readOnly
+                'attr'      => ['readonly' => $this->readOnly]
             )
         );
     }

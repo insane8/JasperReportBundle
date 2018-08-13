@@ -2,6 +2,7 @@
 
 namespace Mesd\Jasper\ReportBundle\InputControl;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilder;
 
 use Mesd\Jasper\ReportBundle\FormType\AjaxSelectType;
@@ -100,14 +101,14 @@ class SingleSelect extends AbstractReportBundleInputControl
         //Add a new multi choice field to the builder
         $formBuilder->add(
             $this->id,
-            $this->isAjax ? new AjaxSelectType() : 'choice',
+            $this->isAjax ? AjaxSelectType::class : ChoiceType::class,
             array(
                 'label'     => $this->label,
                 'choices'   => $choices,
                 'multiple'  => false,
                 'data'      => $selected,
                 'required'  => $this->mandatory,
-                'read_only' => $this->readOnly,
+                'attr'      => ['readonly' => $this->readOnly],
                 'data_class'=> null,
                 'constraints' => $this->mandatory ? [new NotBlank()] : []
             )

@@ -2,6 +2,7 @@
 
 namespace Mesd\Jasper\ReportBundle\InputControl;
 
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilder;
 
 /**
@@ -61,12 +62,12 @@ class Checkbox extends AbstractReportBundleInputControl
         //Add a new text field
         $formBuilder->add(
             $this->id,
-            'checkbox',
+            CheckboxType::class,
             array(
                 'label'     => $this->label,
                 'data'      => filter_var($this->defaultValue, FILTER_VALIDATE_BOOLEAN),
                 'required'  => false,
-                'read_only' => $this->readOnly,
+                'attr'      => ['readonly' => $this->readOnly],
                 'data_class'=> null
             )
         );

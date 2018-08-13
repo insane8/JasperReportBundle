@@ -2,6 +2,7 @@
 
 namespace Mesd\Jasper\ReportBundle\InputControl;
 
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilder;
 
 /**
@@ -61,14 +62,14 @@ class SingleValueDate extends AbstractReportBundleInputControl
         //Add a new date field
         $formBuilder->add(
             $this->id,
-            'date',
+            DateType::class,
             array(
                 'label'     => $this->label,
                 'widget'    => 'single_text',
                 'input'     => 'string',
                 'data'      => (string)$this->defaultValue,
                 'required'  => $this->mandatory,
-                'read_only' => $this->readOnly,
+                'attr'      => ['readonly' => $this->readOnly],
                 'data_class'=> null
             )
         );

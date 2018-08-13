@@ -2,6 +2,7 @@
 
 namespace Mesd\Jasper\ReportBundle\InputControl;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilder;
 
 /**
@@ -71,14 +72,14 @@ class MultiSelectCheckbox extends AbstractReportBundleInputControl
         //Add a new multi choice field to the builder
         $formBuilder->add(
             $this->id,
-            'choice',
+            ChoiceType::class,
             array(
                 'label'     => $this->label,
                 'choices'   => $choices,
                 'multiple'  => true,
                 'data'      => $selected,
                 'required'  => $this->mandatory,
-                'read_only' => $this->readOnly,
+                'attr'      => ['readonly' => $this->readOnly],
                 'expanded'  => true,
                 'data_class'=> null
             )

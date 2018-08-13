@@ -2,6 +2,7 @@
 
 namespace Mesd\Jasper\ReportBundle\InputControl;
 
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilder;
 
 /**
@@ -61,12 +62,12 @@ class SingleValueNumber extends AbstractReportBundleInputControl
         //Add a new number field
         $formBuilder->add(
             $this->id,
-            'number',
+            NumberType::class,
             array(
                 'label'     => $this->label,
                 'data'      => $this->defaultValue,
                 'required'  => $this->mandatory,
-                'read_only' => $this->readOnly,
+                'attr'      => ['readonly' => $this->readOnly],
                 'data_class'=> null
             )
         );

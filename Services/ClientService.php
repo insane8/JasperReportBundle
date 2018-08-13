@@ -17,6 +17,7 @@ use Mesd\Jasper\ReportBundle\Callbacks\PostReportCache;
 use Mesd\Jasper\ReportBundle\Callbacks\PostReportExecution;
 
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Service class that acts as a wrapper around the jasper client class in the jasper client library
@@ -295,7 +296,7 @@ class ClientService {
         //Load the input controls from the client using the factory and the options handler
         $inputControls = $this->jasperClient->getReportInputControl($reportUri, $getICFrom, $icFactory);
         //Build the form
-        $form = $this->container->get('form.factory')->createBuilder('form', null, $formOptions);
+        $form = $this->container->get('form.factory')->createBuilder('Symfony\Component\Form\Extension\Core\Type\FormType', null, $formOptions);
 
         if ($targetRoute) {
             $form->setAction($this->container->get('router')->generate($targetRoute, $routeParameters));
@@ -314,7 +315,7 @@ class ClientService {
         }
 
         //Add the submit button
-        $form->add('Run', 'submit');
+        $form->add('Run', SubmitType::class);
 
         //Return the completed form
         return $form->getForm();
