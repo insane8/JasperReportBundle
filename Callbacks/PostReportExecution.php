@@ -5,7 +5,7 @@ namespace Mesd\Jasper\ReportBundle\Callbacks;
 use JasperClient\Interfaces\PostReportExecutionCallback;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Mesd\Jasper\ReportBundle\Entity\ReportHistory;
 use JasperClient\Client\JasperHelper;
 
@@ -22,10 +22,10 @@ class PostReportExecution implements PostReportExecutionCallback
     private $em;
 
     /**
-     * Reference to Symfony's security context
-     * @var SecurityContext
+     * Reference to Symfony's security token storage
+     * @var $tokenStorage
      */
-    private $securityContext;
+    private $tokenStorage;
 
 
     //////////////////
@@ -37,12 +37,12 @@ class PostReportExecution implements PostReportExecutionCallback
      * Constructor
      *
      * @param EntityManager   $em              The entity manager to use when placing report execution records into the database
-     * @param SecurityContext $securityContext The security context to use when saving information into the database
+     * @param TokenStorage $tokenStorage The security context to use when saving information into the database
      */
-    public function __construct(EntityManager $em, SecurityContext $securityContext) {
+    public function __construct(EntityManager $em, TokenStorage $tokenStorage) {
         //Set stuff
         $this->em = $em;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
     }
 
 
@@ -55,7 +55,7 @@ class PostReportExecution implements PostReportExecutionCallback
      * The function to be invoked once the report has been executed
      *
      * @param string           $requestId        The request Id of the report being cached
-     * @param array            $options          The options 
+     * @param array            $options          The options
      * @param SimpleXMLElement $executionDetails The report execution request details XML
      */
     public function postReportExecution($resource, $options, $response) {
@@ -78,7 +78,7 @@ class PostReportExecution implements PostReportExecutionCallback
         //Set everything else
         $rh->setDate(new \DateTime());
         $rh->setReportUri($resource);
-        $rh->setUsername($this->securityContext->getToken()->getUsername());
+        $rh->setUsername($this->tokenStorage->getToken()->getUsername());
         $rh->setStatus('executed');
 
         //Persist and flush
