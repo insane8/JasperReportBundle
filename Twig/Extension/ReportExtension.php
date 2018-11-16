@@ -4,13 +4,8 @@ namespace Mesd\Jasper\ReportBundle\Twig\Extension;
 
 use Mesd\Jasper\ReportBundle\Helper\DisplayHelper;
 
-class ReportExtension extends \Twig_Extension {
-
-    ////////////////
-    // VARIABLES  //
-    ////////////////
-
-
+class ReportExtension extends \Twig_Extension
+{
     /**
      * The Jasper Reports Bundle display helper
      * @var DisplayHelper
@@ -18,28 +13,10 @@ class ReportExtension extends \Twig_Extension {
     private $displayHelper;
 
     /**
-     * The Twig Environment Reference
-     * @var [type]
-     */
-    private $environment;
-
-    /**
      * The default route to handle html page loads
      * @var string
      */
     private $defaultPageRoute;
-
-    /**
-     * The default route to handle assets
-     * @var string
-     */
-    private $defaultAssetRoute;
-
-
-    //////////////////
-    // BASE METHODS //
-    //////////////////
-
 
     /**
      * Constructor
@@ -51,43 +28,20 @@ class ReportExtension extends \Twig_Extension {
         $this->displayHelper = $displayHelper;
     }
 
-
-    //////////////////////////////
-    // TWIG EXTENSION INTERFACE //
-    //////////////////////////////
-
-
-    //InitRuntime function, called at runtime, overriding to get an instance of the twig environment
-    public function initRuntime(\Twig_Environment $environment) {
-        $this->environment = $environment;
-    }
-
     //Get functions lists the functions in this class
     public function getFunctions() {
-        //Function definition
         return array(
-            'mesd_report_render_page_links'     => new \Twig_Function_Method($this, 'renderPageLinks',  array('is_safe' => array('html'))),
-            'mesd_report_render_output'         => new \Twig_Function_Method($this, 'renderReportOutput', array('is_safe' => array('html'))),
-            'mesd_report_render_export_links'   => new \Twig_Function_Method($this, 'renderExportLinks', array('is_safe' => array('html')))
+            new \Twig_SimpleFunction('mesd_report_render_page_links', [$this, 'renderPageLinks'],  array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('mesd_report_render_output', [$this, 'renderReportOutput'],  array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('mesd_report_render_export_links', [$this, 'renderExportLinks'],  array('is_safe' => array('html'))),
         );
     }
-
-    //Returns the name of this extension (this is required)
-    public function getName() {
-        return 'mesd_report_extension';
-    }
-
-
-    ///////////////
-    // FUNCTIONS //
-    ///////////////
-
 
     /**
      * Renders links for the html pages of a report
      *
      * @param  JasperClient\Client\Report $report The report object
-     * @param  string                     $route  Symfony route for the action that handles html report page loads, optional, 
+     * @param  string                     $route  Symfony route for the action that handles html report page loads, optional,
      *                                              will default to the route set in the config if not set
      *
      * @return string                             The rendered output
@@ -95,7 +49,6 @@ class ReportExtension extends \Twig_Extension {
     public function renderPageLinks($report, $route = null) {
         return $this->displayHelper->renderPageLinks($report, $route ?: $this->defaultPageRoute);
     }
-
 
     /**
      * Renders the output of a report
@@ -107,7 +60,6 @@ class ReportExtension extends \Twig_Extension {
     public function renderReportOutput($report) {
         return $this->displayHelper->renderReportOutput($report);
     }
-
 
     /**
      * Renders export links for a cached report
