@@ -104,7 +104,7 @@ class SingleSelect extends AbstractReportBundleInputControl
             $this->isAjax ? AjaxSelectType::class : ChoiceType::class,
             array(
                 'label'     => $this->label,
-                'choices'   => $choices,
+                'choices'   => array_flip($choices),
                 'multiple'  => false,
                 'data'      => $selected,
                 'required'  => $this->mandatory,

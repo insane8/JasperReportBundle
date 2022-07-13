@@ -75,7 +75,7 @@ class MultiSelectCheckbox extends AbstractReportBundleInputControl
             ChoiceType::class,
             array(
                 'label'     => $this->label,
-                'choices'   => $choices,
+                'choices'   => array_flip($choices),
                 'multiple'  => true,
                 'data'      => $selected,
                 'required'  => $this->mandatory,
