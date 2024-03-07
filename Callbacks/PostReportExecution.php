@@ -5,7 +5,7 @@ namespace Mesd\Jasper\ReportBundle\Callbacks;
 use JasperClient\Interfaces\PostReportExecutionCallback;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Mesd\Jasper\ReportBundle\Entity\ReportHistory;
 use JasperClient\Client\JasperHelper;
 
@@ -39,7 +39,7 @@ class PostReportExecution implements PostReportExecutionCallback
      * @param EntityManager   $em              The entity manager to use when placing report execution records into the database
      * @param TokenStorage $tokenStorage The security context to use when saving information into the database
      */
-    public function __construct(EntityManager $em, TokenStorage $tokenStorage) {
+    public function __construct(EntityManager $em, TokenStorageInterface $tokenStorage) {
         //Set stuff
         $this->em = $em;
         $this->tokenStorage = $tokenStorage;
