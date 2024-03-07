@@ -76,7 +76,7 @@ class MesdJasperReportExtension extends Extension
         $reportSecurityDefinition = $container->getDefinition('mesd.jasper.report.security');
 
         //Append the project root dir to the security file
-        $securityFile = $container->getParameter('kernel.root_dir') . $config['report_security']['security_file'];
+        $securityFile = $container->getParameter('kernel.project_dir') . $config['report_security']['security_file'];
 
         //Setup the report security service
         $reportSecurityDefinition->addMethodCall('setSecurityFile', array($securityFile));
