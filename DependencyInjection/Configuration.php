@@ -9,9 +9,10 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder('mesd_jasper_report');
+        $rootNode = $treeBuilder->getRootNode();
 
-        $builder->root('mesd_jasper_report')
+        $rootNode
             ->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('default_folder')->defaultValue('/reports')->end()
@@ -78,6 +79,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
-        return $builder;
+        return $treeBuilder;
     }
 }
