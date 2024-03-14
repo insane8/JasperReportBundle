@@ -1,11 +1,11 @@
 MesdJasperReportBundle_render_cached_asset:
     path:    /assets/{asset}/{requestId}
-    defaults:   { _controller: MesdJasperReportBundle:Report:displayCachedAsset }
+    defaults:   { _controller: Mesd\Jasper\ReportBundle\Controller\ReportController::displayCachedAssetAction }
 
 MesdJasperReportBundle_export_cached_report:
     path:    /export/{requestId}/{format}
-    defaults:   { _controller: MesdJasperReportBundle:Report:exportCachedReport }
+    defaults:   { _controller: Mesd\Jasper\ReportBundle\Controller\ReportController::exportCachedReportAction }
 
 MesdJasperReportBundle_ajax_options:
     path:    /ajaxoptions/{inputId}
-    defaults:   { _controller: MesdJasperReportBundle:Report:ajaxOptions }
+    defaults:   { _controller: Mesd\Jasper\ReportBundle\Controller\ReportController::ajaxOptionsAction }
