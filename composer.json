@@ -8,6 +8,7 @@
     }
     ,"target-dir": "Mesd/Jasper/ReportBundle"
     ,"require": {
-        "mesd/jasper-client": "~1.0"
+        "mesd/jasper-client": "~1.0",
+        "twig/twig": "^2.12|^3.0"
     }
 }

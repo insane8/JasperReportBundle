@@ -3,8 +3,10 @@
 namespace Mesd\Jasper\ReportBundle\Twig\Extension;
 
 use Mesd\Jasper\ReportBundle\Helper\DisplayHelper;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-class ReportExtension extends \Twig_Extension
+class ReportExtension extends AbstractExtension
 {
     /**
      * The Jasper Reports Bundle display helper
@@ -31,9 +33,9 @@ class ReportExtension extends \Twig_Extension
     //Get functions lists the functions in this class
     public function getFunctions() {
         return array(
-            new \Twig_SimpleFunction('mesd_report_render_page_links', [$this, 'renderPageLinks'],  array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('mesd_report_render_output', [$this, 'renderReportOutput'],  array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('mesd_report_render_export_links', [$this, 'renderExportLinks'],  array('is_safe' => array('html'))),
+            new TwigFilter('mesd_report_render_page_links', [$this, 'renderPageLinks'],  array('is_safe' => array('html'))),
+            new TwigFilter('mesd_report_render_output', [$this, 'renderReportOutput'],  array('is_safe' => array('html'))),
+            new TwigFilter('mesd_report_render_export_links', [$this, 'renderExportLinks'],  array('is_safe' => array('html'))),
         );
     }
 
